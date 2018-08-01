@@ -48,6 +48,9 @@ class Items extends CI_Controller {
 
 
        echo json_encode($q->row());
+         //Set message
+         $this->session->set_flashdata('job_added', 'New job saved');
+         redirect('home');
     }
 
 

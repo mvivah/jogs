@@ -1,20 +1,54 @@
-/*!
- * 
- * Custom Stylesheet for the job grading system
- * 
- */
+    /*!
+    * 
+    * Custom Stylesheet for the job grading system
+    * 
+    */
 
- html,body{
-  background-color: #F8F8F8;
-  line-height: 1.2rem;
- }
- .navgrp{
-  position:absolute;
-  right:1em;
- }
- form#jogs>#knowhow,#problemsolving,#accountability,#intersect{
- 	display: none;
- }
- .alert{
-    display: none; 
- }
+    html,body{
+    background-color: #F8F8F8;
+    line-height: 1.2rem;
+    }
+    .navgrp{
+    position:absolute;
+    right:1em;
+    }
+    form#jogs>#knowhow,#problemsolving,#accountability,#intersect{
+        display: none;
+    }
+    .alert{
+        display: none; 
+    }
+    .test{
+        background-color: #F8F8F8;
+        position:sticky;
+        top: 0;
+        padding: 5px;
+        z-index: 1000;
+    }
+    .gone{
+        display: none;
+    }
+    .dets{
+        font-size: 1px !important;
+        font-weight: normal;
+        text-align:left;
+
+    }
+    .testpos{
+        background-color:rgb(18, 190, 162) !important;
+        font-size: 0.8em !important;
+        width: 10em;
+        height: 4.5em;
+        box-sizing: border-box;
+        float: left;
+        top:2em;
+    }
+    .bread{
+        box-sizing: border-box;
+        font-size: 0.8em !important;
+        width: 10em;
+        height: 4.5em;
+        top:2.5em;
+        left: 6em;
+        background-color: rgb(8, 136, 136) !important;
+    }

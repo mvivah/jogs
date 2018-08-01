@@ -5,11 +5,12 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('home');
-	}
-	public function graded()
-	{
-		$this->load->view('graded');
+		$data['title'] = 'Graded Jobs';
+		$data['jobs'] = $this->Jobs_model->get_jobs();
+		
+		$this ->load->view('templates/header');
+		$this ->load->view('home/index',$data);
+		$this ->load->view('templates/footer');
 	}
 	
 }
