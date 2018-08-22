@@ -59,12 +59,22 @@ class Users extends CI_Controller {
             $username = $this->input->post('username');
             //Get and encrypt password
             $password = md5($this->input->post('password'));
+
             //Login User
-            $user_id = $this->User_model->login($username,$password);
-            
-            if($user_id){
+            $user = $this->User_model->login($username,$password);
+
+            if($user){
             //Create Session
-            $user_data = array('user_id'=>$id,'username'=>$username,'level'=>$level,'logged_in'=>true);
+            $user_data = array(
+							'user_id'=>$user->id,
+							'staffId'=>$user->staffId,
+							'username'=>$user->username,
+							'firstname'=>$user->firstname,
+							'lastname'=>$user->lastname,
+							'phone'=>$user->phone,
+							'email'=>$user->email,
+							'level'=>$user->level,
+							'logged_in'=>true);
             $this->session->set_userdata($user_data);
             //Set message
             $this->session->set_flashdata('login_success', 'You have logged in');
@@ -83,19 +93,82 @@ class Users extends CI_Controller {
     public function logout(){
         //Unset userdata
         $this->session->unset_userdata('logged_in');
-        $this->session->unset_userdata('user_id');
+        $this->session->unset_userdata('user');
         $this->session->unset_userdata('username');
         //Set message
         $this->session->set_flashdata('user_logout', 'You have logged out');
         redirect('login');
     }
-    
+
     //Show Users
     public function index(){
+        if(!$this->session->userdata('level')=='Admin')
+        {
+            redirect('login');
+        }
         $data['title'] = 'System Users';
-		$data['users'] = $this->User_model->get_users();
+				$data['users'] = $this->User_model->get_users();
         $this->load->view('templates/header');
         $this->load->view('users/index', $data);
         $this->load->view('templates/footer');
     }
+
+		/**
+     * Fetch Data for a specific user profile.
+     *
+     * @return Response
+    */
+
+		public function profile(){
+				if(!$this->session->userdata('level')=='Admin')
+				{
+						redirect('login');
+				}
+				$this->load->view('templates/header');
+				$this->load->view('users/profile');
+				$this->load->view('templates/footer');
+		}
+
+   /**
+    * Fetch Data from this method.
+    *
+    * @return Response
+   */
+    public function fetch($id){
+	$data['user'] = $this->User_model->fetch_user($id);
+    }
+
+   /**
+    * Update Data from this method.
+    *
+    * @return Response
+   */
+    public function update($id)
+    {
+        $this->load->database();
+
+        $insert = $this->input->post();
+        $this->db->where('id', $id);
+        $this->db->update('users', $insert);
+        $q = $this->db->get_where('users', array('id' => $id));
+
+
+        echo json_encode($insert);
+     }
+
+ /**
+    * Delete Data from this method.
+    *
+    * @return Response
+   */
+  public function delete($id)
+  {
+      $this->load->database();
+
+      $this->db->where('id', $id);
+      $this->db->delete('users');
+
+      echo json_encode(['success'=>true]);
+   }
+
 }

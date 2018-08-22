@@ -81,7 +81,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </div>
 </section>
-<footer class="footer text-secondary text-center">
+<footer class="footer text-secondary text-center fixed-bottom">
 <p class="footer pull-center">Copy Rights  <strong>&copy; </strong><?php echo date('Y').' UETCL'?></p>
 </footer>
 <!-- Assets -->
